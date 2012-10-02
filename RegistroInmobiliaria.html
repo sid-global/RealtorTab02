@@ -1,0 +1,75 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Realtor Tab Mobile</title>
+        <link href="http://www.corprocessu.com:8001/favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+		<link rel="stylesheet" href="themes/Realtor.min.css"/>
+        <link rel="stylesheet" href="jquery-mobile/jquery.mobile.structure-1.1.1.min.css"/>
+		<script src="jquery-mobile/jquery-1.6.4.min.js" type="text/javascript"></script>
+		<script src="jquery-mobile/jquery.mobile-1.0.min.js" type="text/javascript"></script>
+        <script src="lib/funciones.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div data-role="page" id="page" data-theme="a">
+			<div data-role="header" align="center" data-theme="a">			
+				<h1>Registro de Inmobiliaria</h1>
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a onClick="history.go(-1)">Regresar</a></li>
+                        <li><a href="http://www.integradores.net">www.integradores.net</a></li>
+                        <li><a href="http://www.integradores.net">SID C.A.</a></li>
+                    </ul>
+                </div>
+            </div>
+			<div data-role="content" data-theme="a">
+				</br>
+				<table height="200px" width="350px" align="center" >
+					<tr>
+						<td>
+							<input type="text" name="usr" id="usr" value="" maxlength="32" placeholder="Nombre de Usuario"/>
+							<input type="text" name="correo" id="correo" value="" maxlength="32" placeholder="Correo"/>
+							<input type="text" name="pagWeb" id="pagWeb" value="" maxlength="32" placeholder="Página Web"/>
+							<input type="password" name="pass" id="pass" value="" maxlength="32" placeholder="Contraseña"/>
+							<input type="text" name="tlf1" id="tlf1" value="" maxlength="32" placeholder="Telefono 1"/>
+						</td>
+						<td>
+						</td>
+						<td>
+							<input type="text" name="nombre" id="nombre" value="" maxlength="32" placeholder="Nombre y Apellido" style="visibility:hidden"/>
+							<input type="text" name="correoC" id="correoC" value="" maxlength="32" placeholder="Confirmar Correo"/>
+							<input type="text" name="correoA" id="correoA" value="" maxlength="32" placeholder="Correo Alternativo"/>
+							<input type="password" name="passC" id="passC" valuje="" maxlength="32" placeholder="Confirmar Contraseña"/>
+							<input type="text" name="tlf2" id="tlf2" value="" maxlength="32" placeholder="Telefono 2"/>
+						</td>
+					</tr>
+				</table>
+				
+				<div data-role="fieldcontain" align="center">
+					<label for="selectPais" class="select">País</label>
+					<select name="selectPais" id="selectPais">
+						<option value="">Seleccionar</option>
+					</select>
+				</div>
+				
+				<div data-role="fieldcontain" align="center">
+					<label for="selectCiudad" class="select">Ciudad</label>
+					<select name="selectCiudad" id="selectCiudad">
+						<option value="">Seleccionar</option>
+					</select>
+				</div>
+				
+				</br>
+				<div class="field file" align="center">
+					<label for="data">Logotipo:</label>									
+					<input type="file" name="data" id="data" title="Seleccione un archivo"/>
+				</div>	
+
+				</br></br>
+				<input type="button" id="botonConsultar" onclick="inicioSesion(document.getElementById('elNombre').value, document.getElementById('laClave').value)" value="Registrar" maxlength="32"/>
+				
+			</div>
+		</div>
+	</body>
+</html>

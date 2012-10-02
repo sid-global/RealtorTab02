@@ -1,0 +1,7 @@
+http://10.20.99.35:8001/t_cor_crm_zona_niv4_0001_consulta_zonas?TK=123456&cor_zona_n1_sec=1&cor_zona_n2_sec=2&cor_zona_n3_sec=1
+
+http://10.20.99.35:8001/t_cor_crm_zona_niv2_0001_consulta_estados?TK=123456&cor_zona_n1_sec=1
+
+Seguir el texto: https://docs.google.com/document/d/1tsJvzUZf05v0S7yRwsxqSiyfdP5BX3S7sApodE2M7Tc/edit#
+
+Servicios por hacer: https://docs.google.com/folder/d/0B-QBZvRA8zmJV0Vxd19xYTBnb2s/edit?docId=1Az2mfeuBlR6cDGq45SQpdtPuuIFc9EqNYWIhmBNQGa8

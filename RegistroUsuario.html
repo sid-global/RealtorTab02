@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Realtor Tab Mobile</title>
+        <link href="http://www.corprocessu.com:8001/favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+		<link rel="stylesheet" href="themes/Realtor.min.css" />
+        <link rel="stylesheet" href="jquery-mobile/jquery.mobile.structure-1.1.1.min.css" />
+		<script src="jquery-mobile/jquery-1.6.4.min.js" type="text/javascript"></script>
+		<script src="jquery-mobile/jquery.mobile-1.0.min.js" type="text/javascript"></script>
+        <script src="lib/funciones.js" type="text/javascript"></script>
+	</head> 
+    <body>     
+        <div data-role="page" id="page1" data-theme="a">
+            <div data-role="header" align="center" data-theme="a">
+				<img src="images/header.jpg" width="400" height="100"/>
+                <h1>Registrar nuevo usuario al sistema</h1>
+				<div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li><a onClick="">Regresar</a></li>
+                        <li><a href="http://www.integradores.net">SID C.A.</a></li>
+                        <li><a onClick="cerrarSesion()">SALIR</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="content" data-theme="a">
+				<div id="generales">
+					<div data-role="fieldcontain">
+						<fieldset data-role="controlgroup">
+							<div class="field">
+								<label for="elLogin">Nombre como usuario:</label>
+								<input type="text" name="elLogin" id="elLogin" maxlength="32"/>
+							</div><br/>
+						
+							<div class="field">
+								<label for="laClave1">Contraseña:</label>
+								<input type="password" name="laClave1" id="laClave1" maxlength="32"/>
+							</div><br/>
+					   
+							<div class="field">
+								<label for="laClave2">Repita contraseña:</label>
+								<input type="password" name="laClave2" id="laClave2" maxlength="32"/>
+							</div><br/>
+					  
+							<div class="field">            
+								<label for="elNombre">Su nombre:</label>
+								<input type="text" name="elNombre" id="elNombre" maxlength="64"/>
+							</div><br/>
+					   
+							<div class="field">
+								<label for="elEmail1">Correo electrónico:</label>
+								<input type="text" name="elEmail1" id="elEmail1" maxlength="64"/>
+							</div><br/>
+					   
+							<div class="field">
+								<label for="elEmail2">Correo electrónico alternativo:</label>
+								<input type="text" name="elEmail2" id="elEmail2" maxlength="64"/>
+							</div><br/>
+							
+							<div class="field">
+								<label for="laWeb">Página Web:</label>
+								<input type="text" name="laWeb" id="laWeb" maxlength="64"/>
+							</div>
+						</fieldset>
+					</div>
+				</div>
+				<div data-role="fieldcontain">
+					<fieldset data-role="controlgroup">
+						<legend>Registrar como:</legend>
+						<input type="radio" name="radio-choice-1" id="optInmobiliaria" value="choice-1" checked="checked" onclick="document.getElementById('Inmobiliaria').style.visibility = 'visible';document.getElementById('Corredor').style.visibility = 'hidden';"/>
+						<label for="optInmobiliaria">Inmobiliaria</label>
+						
+						<input type="radio" name="radio-choice-1" id="optCorredor" value="choice-2" onclick="document.getElementById('Inmobiliaria').style.visibility = 'hidden';document.getElementById('Corredor').style.visibility = 'visible';"/>
+						<label for="optCorredor">Corredor de bienes raíces</label>
+					</fieldset>
+				</div>
+				<div id="Inmobiliaria">
+					<div data-role="fieldcontain">
+						<fieldset data-role="controlgroup">
+							<div class="field">
+								<label for="elTelef1">Teléfono 1:</label>
+								<input type="text" name="elTelef1" id="elTelef1" title="Teléfono principal"/>
+							</div><br/>
+							<div class="field">
+								<label for="elTelef1">Teléfono 2:</label>
+								<input type="text" name="elTelef2" id="elTelef2" title="Teléfono alternativo"/>
+							</div><br/>
+							<form name="logot" id="logot" enctype="multipart/form-data" action="http://corprocessu.com:8001/subir_imagen" method="POST" target="marco">
+								<div class="field">
+									<label for="nombreLogo">Nombre del logo:</label>
+									<input type="text" name="nombreLogo" id="nombreLogo" title="Nombre para el archivo del logo" />
+								</div><br/>
+								<div class="field file">
+									<label for="data">Logotipo de la inmobiliaria:</label>									
+									<input type="file" name="data" id="data" title="Seleccione un archivo"/>
+								</div>
+							</form>
+						</fieldset>
+					</div>
+				</div>
+				<div id="Corredor" style="visibility:hidden">
+					
+				</div>
+				<iframe id="marco" style="visibility:hidden" height="20" width="20"></iframe>
+				<input type="button" value="Registrarse" onclick="laFecha=obtiene_fecha();agregarUsuario(document.getElementById('elLogin').value,document.getElementById('laClave1').value,document.getElementById('elNombre').value,document.getElementById('elEmail1').value,'N',document.getElementById('elEmail2').value,laFecha,document.getElementById('laWeb').value);"/>
+            </div>
+        </div>
+        <div data-role="page" id="page2" data-theme="a">
+            <div data-role="header">
+                <h1>Bienvenido a Realtor Tab</h1>
+            </div>
+            <div data-role="content">	
+                Usuario agregado exitosamente!
+            </div>
+        </div>
+        <div data-role="page" id="page3" data-theme="a">
+            <div data-role="header">
+                <h1>Error al registrar</h1>
+            </div>
+            <div data-role="content">	
+                Error: el nombre de usuario ya está siendo utilizado
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Realtor Tab Mobile</title>
+        <link href="http://www.corprocessu.com:8001/favicon.ico" type="image/x-icon" rel="shortcut icon"/>
+        <link rel="stylesheet" href="themes/Realtor.min.css"/>
+        <link rel="stylesheet" href="jquery-mobile/jquery.mobile.structure-1.1.1.min.css"/>
+        <script src="jquery-mobile/jquery-1.6.4.min.js" type="text/javascript"></script>
+        <script src="jquery-mobile/jquery.mobile-1.0.min.js" type="text/javascript"></script>
+        <script src="lib/funciones.js" type="text/javascript"></script>
+        <style type='text/css'>
+			.estiloRango{
+				position: relative;
+				height: 30px;
+				/*width: 140%;*/
+				margin-top: 60px;
+			}
+			.estiloRango label{
+				position: absolute;
+				top: -30px;
+				left: 10px;
+			}                            
+			/* moves label field */
+			.estiloRango #precio_min{
+				top: -40px;
+				position: absolute;
+				left: 160px;
+				display:none
+			}   
+			/* moves first input field */ 
+			.estiloRango #precio_max{
+				top: -40px;
+				position: absolute;
+				left: 240px;
+				display:none
+			}      
+			/* move second input field */ 
+			.estiloRango div.ui-slider{
+				position: absolute;
+			}                   
+			/* move both sliders - adressing 1st slider with CSS is hard */ 
+			.estiloRango div:last-child{
+				position: absolute;
+				left: 0px;
+			}
+		
+			.estiloRango2{
+				position: relative;
+				height: 30px;
+				/*width: 140%;*/
+				margin-top: 60px;
+			}
+			.estiloRango2 label{
+				position: absolute;
+				top: -30px;
+				left: 10px;
+			}                            
+			/* moves label field */
+			.estiloRango2 #metros_min{
+				top: -40px;
+				position: absolute;
+				left: 160px;
+				display:none;
+			}   
+			/* moves first input field */ 
+			.estiloRango2 #metros_max{
+				top: -40px;
+				position: absolute;
+				left: 240px;
+				display:none;		
+			}      
+			/* move second input field */ 
+			.estiloRango2 div.ui-slider{
+				position: absolute;
+			}                   
+			/* move both sliders - adressing 1st slider with CSS is hard */ 
+			.estiloRango2 div:last-child{
+				position: absolute;
+				left: 0px;
+			}		
+		</style>
+        <script type='text/javascript'>
+			$(window).load(function(){
+				localStorage.modalidad = "V";
+				$('#precio_min').change(function() {
+					var min = parseInt($(this).val());
+					var max = parseInt($('#precio_max').val());
+					if (min > max) {
+						$('#precio_max').val(min);
+						$('#precio_max').slider('refresh');
+						$(this).slider('refresh');
+					}
+				});
+				$('#precio_max').change(function() {
+					var min = parseInt($('#precio_min').val());
+					var max = parseInt($(this).val());
+
+					if (min > max) {
+						$('#precio_min').val(max);
+
+						$(this).slider('refresh');
+						$('#precio_min').slider('refresh');
+					}
+				});
+				$('#metros_min').change(function() {
+					var min2 = parseInt($(this).val());
+					var max2 = parseInt($('#metros_max').val());
+					if (min2 > max2) {
+						$('#metros_max').val(min2);
+						$('#metros_max').slider('refresh');
+						$(this).slider('refresh');
+					}
+				});
+				$('#metros_max').change(function() {
+					var min2 = parseInt($('#metros_min').val());
+					var max2 = parseInt($(this).val());
+					if (min2 > max2) {
+						$('#metros_min').val(max2);
+						$(this).slider('refresh');
+						$('#metros_min').slider('refresh');
+					}
+				});
+			});
+		</script>
+    </head> 
+    <body> 
+        <div data-role="page" id="page1" data-theme="a">
+            <div data-role="header" align="center" data-theme="a">
+                <h1>Buscador de Propiedades</h1>
+                <div data-role="navbar" data-iconpos="top">
+					<ul id="menuBar">
+						<li><a onClick="history.go(-1)">Regresar</a></li>
+                        <li><a href="http://www.integradores.net">SID C.A.</a></li>
+						<li><a onClick="cerrarSesion()">SALIR</a></li>
+						<!-- 
+						<script>
+							if(localStorage.usr != ""){
+								$("#menuBar").html("<li><a onClick=\"cerrarSesion()\">SALIR</a></li>");
+							}
+						</script>
+						-->
+                    </ul>
+                </div>
+				<div data-role="navbar" data-iconpos="top" >
+                    <ul>
+                        <li><a onClick="localStorage.modalidad='V'" class="ui-btn-active">Venta</a></li>
+                        <li><a onClick="localStorage.modalidad='A'">Alquiler</a></li>
+                        <li><a onClick="localStorage.modalidad='T'">Todos</a></li>
+                    </ul>
+				</div>
+            </div>
+        	<div data-role="content" data-theme="a" align="center">
+            	<strong>Ubicación del inmueble</strong>
+				<div data-role="fieldcontain">
+                	<table align="center">
+                    	<tr>
+	                        <td width="500">
+                                <fieldset data-role="controlgroup" data-type="vertical">
+                                    <div id="estados">
+                                        <select id="losEstados" data-native-menu="false" onchange="listarCiudades(document.getElementById('losEstados').options[document.getElementById('losEstados').selectedIndex].id)">
+                                        </select>
+                                    </div>
+                                    <div id="ciudades">
+                                        <select id="lasCiudades" data-native-menu="false" onchange="listarZonas(document.getElementById('losEstados').options[document.getElementById('losEstados').selectedIndex].id, document.getElementById('lasCiudades').options[document.getElementById('lasCiudades').selectedIndex].id)">
+                                        </select>
+                                    </div>
+                                    <div id="zonas">
+                                        <select id='lasZonas' data-native-menu="false">
+                                        </select>
+                                    </div>
+                                </fieldset>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            	<script>listarEstados();</script>
+            </div>
+            <table align="center">
+				<tr>
+                    <td width="1100" colspan="2">
+                        <div class="estiloRango" id="losPrecios">
+                            <label for="precio_min"><strong>Precio en BsF.:</strong></label>
+                            <input type="range" name="precio_min" id="precio_min" value="0" min="0" max="100" onchange="actualizaPrecioMin(document.getElementById('precio_min').value)"/>
+                            <input type="range" name="precio_max" id="precio_max" value="100" min="0" max="100" onchange="actualizaPrecioMax(document.getElementById('precio_max').value)" data-track-theme="a"/>						
+                        </div>
+                    </td>                 
+                </tr>
+                <tr>
+                	<td align="left">
+                    	Minimo:<label id="minP">0</label>
+                    </td>
+                    <td align="center">
+                    	Máximo:<label id="maxP">100</label></td>
+                    </td>
+                </tr>
+				<script>setPrecios();</script>
+                <tr>                	
+                    <td width="1100" colspan="2">
+                        <div class="estiloRango2">
+                            <label for="metros_min"><strong>Metros cuadrados:</strong></label>
+                            <input type="range" name="metros_min" id="metros_min" value="0" min="0" max="100" onchange="actualizaMetrosMin(document.getElementById('metros_min').value)" />
+                            <input type="range" name="metros_max" id="metros_max" value="100" min="0" max="100" onchange="actualizaMetrosMax(document.getElementById('metros_max').value)" data-track-theme="a"/>
+                        </div>
+                    </td>
+                </tr>
+				<script>setMetros();</script>
+            	<tr>
+                	<td align="left">
+                    	Minimo:<label id="minM">0</label>
+                    </td>
+                    <td align="center">
+                    	Máximo:<label id="maxM">100</label></td>
+                    </td>
+                </tr>
+            </table>
+            <table cellpadding="10" align="center">
+            	<tr>
+                	<td width="120">
+                    	<label for="Habitaciones"><strong>Habitaciones</strong></label>
+			            <select id="Habitaciones" data-native-menu="false">
+            			</select>
+                    </td>
+                	<td width="120">
+                        <label for="Banos"><strong>Baños</strong></label>
+                        <select id="Banos" data-native-menu="false">
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <script>listarHabBan();</script>
+			<div data-role="content" data-theme="a">
+				<div data-role="collapsible-set">
+					<div data-role="collapsible">
+						<h3>Opciones avanzadas...</h3>
+						<div data-role="fieldcontain">
+							<label for="tipo_inm"><strong>Tipo de Inmueble</strong></label>
+							<select id="tipo_inm" data-native-menu="false">
+							</select>
+						</div>
+						<div data-role="fieldcontain">
+							<label for="inm_sec"><strong>Código de Inmueble</strong></label>
+							<input type="text" id="inm_sec" name="inm_sec"/>
+						</div>
+						 <script>listarTiposInm();</script>
+					</div>
+				</div>
+			</div>
+			<div data-role="controlgroup" data-type="horizontal" align="center">
+				<table align="center">
+					<tr>
+						<td align="center">
+							<input type="button" id="buscar" name="buscar" value="Buscar inmuebles" onclick="buscar(localStorage.modalidad, 1, document.getElementById('losEstados').options[document.getElementById('losEstados').selectedIndex].id, document.getElementById('lasCiudades').options[document.getElementById('lasCiudades').selectedIndex].id, document.getElementById('lasZonas').options[document.getElementById('lasZonas').selectedIndex].id, minimoPrecio + ((maximoPrecio-minimoPrecio)*(document.getElementById('precio_min').value/100)), minimoPrecio + ((maximoPrecio-minimoPrecio)*(document.getElementById('precio_max').value/100)), minimoMetros + ((maximoMetros-minimoMetros)*(document.getElementById('metros_min').value/100)), minimoMetros + ((maximoMetros-minimoMetros)*(document.getElementById('metros_max').value/100)), parseInt((document.getElementById('Habitaciones').options[document.getElementById('Habitaciones').selectedIndex].id).substring(3,4)), parseInt((document.getElementById('Banos').options[document.getElementById('Banos').selectedIndex].id).substring(3,4)), document.getElementById('tipo_inm').options[document.getElementById('tipo_inm').selectedIndex].id, document.getElementById('inm_sec').value);"/>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<br/>
+        </div>
+		<div data-role="page" id="page2" data-theme="a">
+			<div data-role="header" align="center" data-theme="a">
+				<h1>Resultados</h1>
+				<div data-role="navbar" data-iconpos="top">
+					<ul>
+						<li><a onClick="history.go(-1)">Regresar</a></li>
+                        <li><a href="http://www.integradores.net">SID C.A.</a></li>
+                        <li><a onClick="cerrarSesion()">SALIR</a></li>
+					</ul>
+				</div>
+			</div>
+			<div data-role="content" data-theme="b">
+				<div id="espera" align="center">
+					<img src="images/cargando.gif" width="100" height="100"/>
+				</div>
+				<div id="tablaResultados">
+					 <ul data-role="listview" data-inset="true" id="resultadosLista"></ul>
+				</div>
+				<input type="button" id="buscarMas" onclick="buscarMas()" value="Mas..." maxlength="32" />
+			</div>
+		</div>
+		<div data-role="page" id="page3">
+			<div data-role="header" align="center" data-theme="a">
+				<h1>Datos del Inmueble</h1>
+				<div data-role="navbar" data-iconpos="top">
+					<ul>
+						<li><a onClick="history.go(-1)">Regresar</a></li>
+                        <li><a href="http://www.integradores.net">SID C.A.</a></li>
+                        <li><a onClick="cerrarSesion()">SALIR</a></li>
+					</ul>
+				</div>
+				<div data-role="navbar" data-iconpos="top" data-theme="b">
+					<ul>
+						<li><a href="" class="ui-btn-active">Detalles</a></li>
+						<li><a onClick="redireccionar('Mapa.html')">Ver en el mapa</a></li>
+					</ul>
+				</div>
+			</div>
+			<div data-role="content" data-theme="a" align="center">
+				<div id="losBotones" style="visibility:hidden">
+					<table align="center">
+						<tr>
+							<td>
+								<div data-role="controlgroup" data-type="horizontal" align="center">
+									<input type="button" id="fotoAnterior" value="&nbsp&nbsp&nbsp&nbsp&nbsp<&nbsp&nbsp&nbsp&nbsp&nbsp" onclick="anteriorFoto()"/>
+									<input type="button" id="fotoSiguiente" value="&nbsp&nbsp&nbsp&nbsp&nbsp>&nbsp&nbsp&nbsp&nbsp&nbsp" onclick="siguienteFoto()"/>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<br/>
+				</div>	
+				<div id="lasImagenes" align="center">
+					<img id="fotoInmueble" name="fotoInmueble" src=""/>
+				</div>
+				<div id="datosDetalle" align="center">
+					<div id="espera2" align="center">
+						<img src="images/cargando.gif" width="100" height="100"/>
+					</div>
+					<ul data-role="listview" data-inset="true" data-theme="c" data-divider-theme='a' id="resultadosLista2"></ul>
+				</div>				
+			</div>
+			
+		</div>
+    </body>
+</html>
